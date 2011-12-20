@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" encoding="utf-8"
+  metal:use-macro="here/main_template/macros/master" i18n:domain="nmd">
+  <body>
+   <div metal:fill-slot="content-core">
+    <tal:block define="galleryview nocall:context/@@gallery">
+     <div id="highslidegallery">
+      <tal:photos tal:repeat="photo galleryview/photos">
+       <a class="highslide" rel="group" onclick="return hs.expand(this)"
+         tal:attributes="title string:${photo/title} - ${photo/description};
+                         href photo/url;">
+         <img tal:attributes="src photo/thumb_url; 
+                             alt string:${photo/title} - ${photo/description}" />
+       </a>
+       <span class="highslide-heading">
+         <a href="image" tal:content="photo/title" tal:attributes="href photo/url">Image Title</a>
+       </span>
+      </tal:photos>
+    <script type="text/javascript" tal:content="structure view/settings_javascripts"></script>
+    <script type="text/javascript">
+       //We want to set stuff related to graphic integration here
+       hs.wrapperClassName = 'dark borderless floating-caption';
+    </script>
+     </div>
+    </tal:block>
+   </div>
+  </body>
+</html>

@@ -1,5 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
@@ -15,5 +16,37 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
   <!-- -*- extra stuff goes here -*- -->
+    <include package="plone.app.contentmenu" />
+
+  <browser:page
+    name="highslide_view"
+    for="collective.gallery.interfaces.IFolder"
+    class=".gallery.HighSlideGallery"
+    menu="plone_displayviews"
+    title="HighSlide"
+    permission="zope.Public"
+    template="gallery.pt"
+    layer="collective.highslide.interfaces.IHighSlideLayer"
+    />
+  <browser:page
+    name="highslide_view"
+    for="collective.gallery.interfaces.ITopic"
+    class=".gallery.HighSlideGallery"
+    menu="plone_displayviews"
+    title="HighSlide"
+    permission="zope.Public"
+    template="gallery.pt"
+    layer="collective.highslide.interfaces.IHighSlideLayer"
+    />
+  <browser:page
+    name="highslide_view"
+    for="collective.gallery.interfaces.ILink"
+    class=".gallery.HighSlideGallery"
+    menu="plone_displayviews"
+    title="HighSlide"
+    permission="zope.Public"
+    template="gallery.pt"
+    layer="collective.highslide.interfaces.IHighSlideLayer"
+    />
   
 </configure>

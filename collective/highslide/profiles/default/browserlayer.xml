@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<layers>
+    <layer name="collective.highslide"
+        interface="collective.highslide.interfaces.IHighSlideLayer"
+    />
+</layers>

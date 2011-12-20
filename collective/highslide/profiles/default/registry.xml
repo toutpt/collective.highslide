@@ -1,0 +1,3 @@
+<registry>
+  <records interface="collective.highslide.gallery.IHighSlideSettings" />
+</registry>
