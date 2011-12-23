@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <metadata>
   <version>1000</version>
-  <dependencie>
+  <dependencies>
     <dependency>profile-collective.js.highslide:default</dependency>
     <dependency>profile-collective.gallery:default</dependency>
     <dependency>profile-collective.configviews:default</dependency>
-  </dependencie>
+  </dependencies>
 </metadata>
