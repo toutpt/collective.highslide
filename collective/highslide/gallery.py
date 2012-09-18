@@ -6,6 +6,9 @@ from collective.configviews import ConfigurableBaseView
 
 from collective.highslide.i18n import messageFactory as _
 from collective.highslide import vocabulary
+from zope.component._api import getUtility
+from plone.registry.interfaces import IRegistry
+
 
 class IHighSlideSettings(interface.Interface):
     """HighSlide display settings"""
@@ -79,6 +82,7 @@ hs.transitions = %(transitions)s;
 hs.fadeInOut = %(fadeInOut)s;
 hs.dimmingOpacity = %(dimmingOpacity)s;
 hs.outlineType = '%(outlineType)s';
+hs.wrapperClassName = %(wrapperClassName)s;
 hs.captionEval = 'this.thumb.alt';
 hs.marginBottom = 105; // make room for the thumbstrip and the controls
 hs.numberPosition = 'caption';
@@ -126,11 +130,27 @@ class HighSlideGallery(ConfigurableBaseView):
                                                  name="plone_portal_state")
         return portal_state.portal_url()
 
-
     @property
     def settings(self):
         settings = super(HighSlideGallery, self).settings
-        settings['graphicsDir'] = '++resource++collective.js.highslide/graphics'
+        outlineType = settings['outlineType']
+
+        settings['wrapperClassName'] = ''
+
+        if outlineType=='drop-shadow':
+            settings['wrapperClassName'] = 'dark borderless floating-caption'
+            settings['outlineType'] = ''
+
+        elif 'glossy-dark' in outlineType:
+            settings['wrapperClassName'] = 'dark'
+
+        if len(settings['wrapperClassName']) == 0:
+            settings['wrapperClassName'] = 'null'
+        else:
+            settings['wrapperClassName'] = "'%s'" % settings['wrapperClassName']
+
+        settings['graphicsDir'] = '++resource++collective.js.highslide/graphics/'
+
         return settings
 
     def settings_javascripts(self):
@@ -138,7 +158,7 @@ class HighSlideGallery(ConfigurableBaseView):
         return JAVASCRIPT%settings
     
     def update_boolean_js(self, settings):
-        for i in ('fadeInOut','autoplay','useControls','start_automatically'):
+        for i in ('fadeInOut','autoplay','useControls','start_automatically','repeat'):
             if settings[i]:
                 settings[i]='true'
             else:
